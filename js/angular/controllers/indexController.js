@@ -38,19 +38,22 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                 }
             }
             vector_ajutator.clean('');
+            for(var i=0;i<vector_ajutator.length;i++){
+                vector_ajutator[i]=vector_ajutator[i].replace(/\s/g, '');
+            }
             console.log(vector_ajutator);
             for(var i=0;i<vector_ajutator.length;i++){
                 var vizitat=0;
                 for(var j=0;j<cuvinte_cheie.length;j++){
                     if(vector_ajutator[i]==cuvinte_cheie[j]){
-                    $scope.cuvinte_cheie.push({val:vector_ajutator[i]});
+                        $scope.cuvinte_cheie.push({val:vector_ajutator[i]});
                     }
                     else
                     {
                         if(vizitat==0){
                             if(parseInt(vector_ajutator[i])){
                                 if(vector_ajutator[i]!='\t')
-                                    $scope.variabile.push({val:vector_ajutator[i],tip:'number'});
+                                    $scope.variabile.push({val:vector_ajutator[i],tip:'numar'});
                             }else{
                                 if(vector_ajutator[i]!='\t')
                                     $scope.variabile.push({val:vector_ajutator[i],tip:'string'});
