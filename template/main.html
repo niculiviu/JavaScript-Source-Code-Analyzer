@@ -16,7 +16,7 @@
                 
               </div>
                 <table class="table">
-                    <tr ng-repeat="cuvinte in cuvinte_cheie">
+                    <tr ng-repeat="cuvinte in cuvinte_cheie | unique:'val'">
                         <td>{{cuvinte.val}}</td>
                     </tr>
                 </table>
@@ -29,7 +29,7 @@
                 
               </div>
                  <table class="table">
-                    <tr ng-repeat="semn in semne">
+                    <tr ng-repeat="semn in semne | unique:'val'">
                         <td>{{semn.val}}</td>
                     </tr>
                 </table>
@@ -42,7 +42,7 @@
                 
               </div>
                 <table class="table">
-                    <tr ng-repeat="variabila in variabile">
+                    <tr ng-repeat="variabila in variabile | unique:'val'">
                         <td>{{variabila.val}}</td>
                         <td>{{variabila.tip}}</td>
                     </tr>
