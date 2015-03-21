@@ -68,11 +68,11 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
             }
             
             for(var i=0;i<$scope.variabile.length;i++){
-                for(var j=0;j<$scope.cuvinte_cheie.length;j++)
-                if($scope.cuvinte_cheie[j].val==$scope.variabile[i].val){
-                    $scope.variabile.splice(i,1);
-                    i--;
-                }
+                    for(var j=0;j<$scope.cuvinte_cheie.length;j++){
+                        if($scope.cuvinte_cheie[j].val==$scope.variabile[i].val){
+                            $scope.variabile.splice(i,1);
+                        }
+                    }
             }
         console.log($scope.variabile);
         }
