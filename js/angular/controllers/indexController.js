@@ -21,7 +21,11 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
             var cuvinte_cheie=["abstract", "array", "auto", "bool", "break", "case", "catch", "char", "class", "const", "const_cast", "continue", "decltype", "default", "delegate", "delete", "deprecated 1", "dllexport", "do", "double", "dynamic_cast", "else", "enum", "enum class", "enum struct", "event", "explicit", "extern", "false", "finally", "float", "for", "for each, in", "friend", "friend_as", "gcnew", "generic", "goto", "if", "initonly", "inline", "int", "interface class", "interface struct", "interior_ptr", "literal", "long", "mutable", "naked 1", "namespace", "new", "new", "noinline 1", "noreturn 1", "nothrow 1", "novtable 1", "nullptr", "operator", "private", "property", "property 1", "protected", "public", "ref class", "ref struct", "register", "reinterpret_cast", "return", "safecast", "sealed", "selectany 1", "short", "signed", "sizeof", "static", "static_assert", "static_cast", "struct", "switch", "template", "this", "thread 1", "throw", "true", "try", "typedef", "typeid", "typeid", "typename", "union", "unsigned", "using declaration, using directive", "uuid 1", "value class", "value struct", "virtual", "void", "volatile", "while","cin","cout"];
             
             var vector_ajutator=[];
-            console.log(code.replace(/\r\n|\n/g, ''));
+            var only_math=code.replace(/([a-zA-Z ]|[0-9]|([\[\(][^\[\(\]\)]+))|\s/g, " ").split(" ").clean('')
+            for(var i=0;i<only_math.length;i++){
+                only_math[i]=only_math[i].replace(';','');
+            }
+            console.log(only_math);
             var array = code.replace(/\r\n|\n/g, '').split("");
             var aux='';
             array.clean("");
@@ -52,17 +56,23 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                     {
                         if(vizitat==0){
                             if(parseInt(vector_ajutator[i])){
-                                if(vector_ajutator[i]!='\t')
-                                    $scope.variabile.push({val:vector_ajutator[i],tip:'numar'});
+                                $scope.variabile.push({val:vector_ajutator[i],tip:'numar'});
                             }else{
-                                if(vector_ajutator[i]!='\t')
-                                    $scope.variabile.push({val:vector_ajutator[i],tip:'string'});
+                                $scope.variabile.push({val:vector_ajutator[i],tip:'string'});
                             }
                         }
                         vizitat=1;
                     }
                 }
                
+            }
+            
+            for(var i=0;i<$scope.variabile.length;i++){
+                for(var j=0;j<$scope.cuvinte_cheie.length;j++)
+                if($scope.cuvinte_cheie[j].val==$scope.variabile[i].val){
+                    $scope.variabile.splice(i,1);
+                    i--;
+                }
             }
         console.log($scope.variabile);
         }
