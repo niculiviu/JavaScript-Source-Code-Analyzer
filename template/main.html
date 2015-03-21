@@ -1,52 +1,51 @@
 <div class="container">
     <div class="page-header">
-    <h3>Javascript Source Code Analyzer</h3>
+    <h3>C++ Source Code Analyzer</h3>
     </div>
     <textarea class="form-control" rows="9" ng-model="code"></textarea>
     
     <div align="right" class="well well-sm">
-        <a href="" class="btn btn-primary" ng-click="analyze(code)">Analyze</a>
+        <a href="" class="btn btn-primary" ng-click="analyze(code)">Analizeaza</a>
     </div>
     
     <div class="row">
         <div class="col-sm-4">
             <div class="panel panel-default">
               <div class="panel-heading">Cuvinte cheie</div>
-              <div class="panel-body">
-                
-              </div>
-                <table class="table">
-                    <tr ng-repeat="cuvinte in cuvinte_cheie | unique:'val'">
-                        <td>{{cuvinte.val}}</td>
-                    </tr>
-                </table>
+                <div style="height:300px; overflow:auto;">
+                    <table class="table" style="margin-bottom:0px;">
+                        <tr ng-repeat="cuvinte in cuvinte_cheie | unique:'val'" class="success">
+                            <td>{{cuvinte.val}}</td>
+                            <td>{{cuvinte.tip}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
-              <div class="panel-heading">Semne de punctuatie</div>
-              <div class="panel-body">
-                
-              </div>
-                 <table class="table">
-                    <tr ng-repeat="semn in semne | unique:'val'">
-                        <td>{{semn.val}}</td>
-                    </tr>
-                </table>
+              <div class="panel-heading">Operatori</div>
+                <div style="height:300px; overflow:auto;">
+                     <table class="table" style="margin-bottom:0px;">
+                        <tr ng-repeat="semn in semne | unique:'val'" ng-class="{success:semn.tip=='Separator',info:semn.tip=='Operator logic',danger:semn.tip=='Operator matematic'}">
+                            <td>{{semn.val}}</td>
+                            <td>{{semn.tip}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
-              <div class="panel-heading">Variabile</div>
-              <div class="panel-body">
-                
-              </div>
-                <table class="table">
-                    <tr ng-repeat="variabila in variabile | unique:'val'">
-                        <td>{{variabila.val}}</td>
-                        <td>{{variabila.tip}}</td>
-                    </tr>
-                </table>
+              <div class="panel-heading">Variabile/Constante</div>
+                <div style="height:300px; overflow:auto;">
+                    <table class="table" style="margin-bottom:0px;">
+                        <tr ng-repeat="variabila in variabile | unique:'val'" ng-class="{info:variabila.tip=='string',danger:variabila.tip=='numar'}">
+                            <td>{{variabila.val}}</td>
+                            <td>{{variabila.tip}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
