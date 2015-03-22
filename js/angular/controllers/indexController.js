@@ -97,10 +97,10 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                     {
                         if(vizitat==0){
                             if(!isNaN(vector_ajutator[i])){
-                                $scope.variabile.push({val:vector_ajutator[i],tip:'numar'});
+                                $scope.variabile.push({val:vector_ajutator[i],tip:'Constanta'});
                             }else{
                                 if(vector_ajutator[i].length==1)
-                                $scope.variabile.push({val:vector_ajutator[i],tip:'string'});
+                                $scope.variabile.push({val:vector_ajutator[i],tip:'Variabila'});
                             }
                         }
                         vizitat=1;

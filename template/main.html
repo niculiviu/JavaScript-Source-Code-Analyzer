@@ -40,7 +40,7 @@
               <div class="panel-heading">Variabile/Constante</div>
                 <div style="height:300px; overflow:auto;">
                     <table class="table" style="margin-bottom:0px;">
-                        <tr ng-repeat="variabila in variabile | unique:'val'" ng-class="{info:variabila.tip=='string',danger:variabila.tip=='numar'}">
+                        <tr ng-repeat="variabila in variabile | unique:'val'" ng-class="{info:variabila.tip=='Variabila',danger:variabila.tip=='Constanta'}">
                             <td>{{variabila.val}}</td>
                             <td>{{variabila.tip}}</td>
                         </tr>
