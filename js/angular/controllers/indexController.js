@@ -96,7 +96,7 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                     else
                     {
                         if(vizitat==0){
-                            if(parseInt(vector_ajutator[i])){
+                            if(!isNaN(vector_ajutator[i])){
                                 $scope.variabile.push({val:vector_ajutator[i],tip:'numar'});
                             }else{
                                 if(vector_ajutator[i].length==1)
