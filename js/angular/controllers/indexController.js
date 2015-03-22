@@ -27,6 +27,12 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
             var only_math=code.replace(/([a-zA-Z ]|[0-9])|\s/g, " ").split(" ").clean('')
             for(var i=0;i<only_math.length;i++){
                 //only_math[i]=only_math[i].replace(';','');
+                if(only_math[i]=="++;"||
+                   only_math[i]=="++)"||
+                   only_math[i]=="--;"||
+                   only_math[i]=="--)"){
+                        only_math[i]=only_math[i].substring(0,2);
+                }
                 if(semne.indexOf(only_math[i]) > -1){
                     if(
                         only_math[i]==semne[1]||
