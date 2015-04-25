@@ -9,9 +9,16 @@
     </div>
     
     <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger" role="alert" ng-show="paranteze" style="margin:0px;">Se pare ca o paranteza nu este inchisa/deschisa</div>
+            <div class="alert alert-danger" role="alert" ng-show="acolade" style="margin:0px;"> Se pare ca o acolada nu este inchisa sau deschisa</div>
+            <div class="alert alert-danger" role="alert" ng-repeat="eroare in lipsa_punct_si_virgula" style="margin:0px;">
+                Lipsa <kbd>;</kbd> la linia: {{eroare.linie}}
+            </div>
+        </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
-              <div class="panel-heading">Cuvinte cheie</div>
+              <div class="panel-heading">Cuvinte cheie </div>
                 <div style="height:300px; overflow:auto;">
                     <table class="table" style="margin-bottom:0px;">
                         <tr ng-repeat="cuvinte in cuvinte_cheie | unique:'val'" class="success">
@@ -24,7 +31,7 @@
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
-              <div class="panel-heading">Operatori</div>
+              <div class="panel-heading">Operatori </div>
                 <div style="height:300px; overflow:auto;">
                      <table class="table" style="margin-bottom:0px;">
                         <tr ng-repeat="semn in semne | unique:'val'" ng-class="{success:semn.tip=='Separator',info:semn.tip=='Operator logic',danger:semn.tip=='Operator matematic'}">
@@ -37,7 +44,7 @@
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
-              <div class="panel-heading">Variabile/Constante</div>
+              <div class="panel-heading">Variabile/Constante </div>
                 <div style="height:300px; overflow:auto;">
                     <table class="table" style="margin-bottom:0px;">
                         <tr ng-repeat="variabila in variabile | unique:'val'" ng-class="{info:variabila.tip=='Variabila',danger:variabila.tip=='Constanta'}">

@@ -3,7 +3,7 @@
 app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
     function ($scope, $rootScope,indexService) {
        
-        
+       
         Array.prototype.clean = function(deleteValue) {
           for (var i = 0; i < this.length; i++) {
             if (this[i] == deleteValue) {         
@@ -19,7 +19,53 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
             $scope.cuvinte_cheie=[];
             $scope.variabile=[];
             
-            
+            //validare ;
+            var lines = code.split('\n');
+            console.log(lines);
+            for(i=0;i<lines.length;i++){
+                if(lines[i].indexOf('=')!=-1){
+                    var math_exp=lines[i]
+                    if(math_exp.match(/+/))
+                       
+                                      console.log("adsdasdasdasdsadasdasdasdas");
+                                      
+                }
+            }
+            $scope.lipsa_punct_si_virgula=[]
+            for(i=0;i<lines.length;i++){
+                if(lines[i].indexOf('=')!=-1 && lines[i].indexOf(';')==-1)
+                {
+                    $scope.lipsa_punct_si_virgula.push({linie:i});
+                    console.log("problem at line:"+i);                
+                }
+                if(lines[i].indexOf(',')!=-1 && lines[i].indexOf(';')==-1)
+                {
+                    $scope.lipsa_punct_si_virgula.push({linie:i});
+                    console.log("problem at line:"+i);                
+                }
+                
+                if(lines[i].indexOf('++')!=-1 && lines[i].indexOf(';')==-1)
+                {
+                    $scope.lipsa_punct_si_virgula.push({linie:i});
+                    console.log("problem at line:"+i);                
+                }
+                if(lines[i].indexOf('--')!=-1 && lines[i].indexOf(';')==-1)
+                {
+                    $scope.lipsa_punct_si_virgula.push({linie:i});
+                    console.log("problem at line:"+i);                
+                }
+                if((lines[i].indexOf('+=')!=-1 || lines[i].indexOf('-=')!=-1 || lines[i].indexOf('*=')!=-1 || lines[i].indexOf('/=')!=-1) && lines[i].indexOf(';')==-1)
+                {
+                    $scope.lipsa_punct_si_virgula.push({linie:i});
+                    console.log("problem at line:"+i);                
+                }
+                
+                if((lines[i].indexOf('>>')!=-1 || lines[i].indexOf('<<')!=-1) && lines[i].indexOf(';')==-1)
+                {
+                    $scope.lipsa_punct_si_virgula.push({linie:i});
+                    console.log("problem at line:"+i);                
+                }
+            }
             var semne=["==", "=", "+", "-", "*", "/", "%", "++", "--", "!=", "not_eq", "<", "<=", ">", ">=", "!", "not", "&&", "and", "||", "or", "~", "&", "|", "^", "xor", "<<", ">>", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>=", "->", "}", "{", ")", "(", "[", "]"," ",",",";",""];
             var cuvinte_cheie=["abstract", "array", "auto", "bool", "break", "case", "catch", "char", "class", "const", "const_cast", "continue", "decltype", "default", "delegate", "delete", "deprecated 1", "dllexport", "do", "double", "dynamic_cast", "else", "enum", "enum class", "enum struct", "event", "explicit", "extern", "false", "finally", "float", "for", "for each, in", "friend", "friend_as", "gcnew", "generic", "goto", "if", "initonly", "inline", "int", "interface class", "interface struct", "interior_ptr", "literal", "long", "mutable", "naked 1", "namespace", "new", "new", "noinline 1", "noreturn 1", "nothrow 1", "novtable 1", "nullptr", "operator", "private", "property", "property 1", "protected", "public", "ref class", "ref struct", "register", "reinterpret_cast", "return", "safecast", "sealed", "selectany 1", "short", "signed", "sizeof", "static", "static_assert", "static_cast", "struct", "switch", "template", "this", "thread 1", "throw", "true", "try", "typedef", "typeid", "typeid", "typename", "union", "unsigned", "using declaration, using directive", "uuid 1", "value class", "value struct", "virtual", "void", "volatile", "while","cin","cout"];
             
@@ -75,7 +121,39 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                 }
             }
             $scope.semne.clean('');
+            console.log("Only_math:");
             console.log(only_math);
+            
+            //Verificare paranteze
+            var paranteze_deschise=0,paranteze_inchise=0,acolade_deschise=0,acolade_inchise=0;
+            for(var i=0;i<only_math.length;i++){
+                if(only_math[i]=='('){
+                    paranteze_deschise++;
+                }
+                if(only_math[i]==')'){
+                    paranteze_inchise++;
+                }
+                if(only_math[i]=='{'){
+                    acolade_deschise++;
+                }
+                if(only_math[i]=='}'){
+                    acolade_inchise++;
+                }
+            }
+            console.log(acolade_deschise +" "+acolade_inchise+" "+paranteze_deschise+" "+paranteze_inchise);
+            
+            if(acolade_deschise!=acolade_inchise){
+                $scope.acolade=true;
+            }else{
+                $scope.acolade=false;
+            }
+            
+            if(paranteze_deschise!=paranteze_inchise){
+                $scope.paranteze=true;
+            }else{
+                $scope.paranteze=false;
+            }
+            
             var array = code.replace(/\r\n|\n/g, '').split("");
             var aux='';
             array.clean("");
@@ -89,6 +167,8 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                 }
             }
             vector_ajutator.clean('');
+            console.log("Vector de ajutor:")
+            console.log(vector_ajutator);
             for(var i=0;i<vector_ajutator.length;i++){
                 vector_ajutator[i]=vector_ajutator[i].replace(/\s/g, '');
             }
@@ -123,6 +203,10 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                     }
             }
         console.log($scope.variabile);
+            console.log($scope.cuvinte_cheie);
+        console.log($scope.semne);
         }
+        
+        
        
     }]);
