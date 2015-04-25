@@ -19,18 +19,47 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
             $scope.cuvinte_cheie=[];
             $scope.variabile=[];
             
+            $scope.sintaxa_matematica=[];
+            $scope.sintaxa_att=[];
             //validare ;
             var lines = code.split('\n');
             console.log(lines);
-            for(i=0;i<lines.length;i++){
-                if(lines[i].indexOf('=')!=-1){
-                    var math_exp=lines[i]
-                    if(math_exp.match(/+/))
-                       
-                                      console.log("adsdasdasdasdsadasdasdasdas");
-                                      
-                }
+            try { 
+                for(i=0;i<lines.length;i++){
+                    if(lines[i].indexOf('=')!=-1
+                       && !(lines[i].indexOf('+')!=-1 || lines[i].indexOf('-')!=-1 || lines[i].indexOf('*')!=-1 || lines[i].indexOf('/')!=-1))
+                    {
+                        var attribute_expersion=lines[i];
+                        var left_side_attribute_expression=attribute_expersion.split("=");
+                        console.log(left_side_attribute_expression);
+                        if(left_side_attribute_expression[0]==""||left_side_attribute_expression[1]=="" || left_side_attribute_expression[1]==";"){
+                            $scope.sintaxa_att.push({linie:i});
+                        }
+                    }
+                    if(lines[i].indexOf('+')!=-1 || lines[i].indexOf('-')!=-1 || lines[i].indexOf('*')!=-1 || lines[i].indexOf('/')!=-1){
+                            if(lines[i].indexOf('=')!=-1){
+                                var math_exp=lines[i];
+                                var left_side_expression=math_exp.split("=");
+                                if(left_side_expression[0]==""){
+                                     $scope.sintaxa_att.push({linie:i});
+                                }
+                                console.log(left_side_expression[1].replace(/[a-z0-9]+/gi,1));
+                                    if(parseInt(eval(left_side_expression[1].replace(/[a-z0-9]+/gi,1))))
+                                    {
+                                        console.log("SUCCESS");
+                                    }
+                            }
+                        }
+
+                    }
+            } 
+            catch(err)
+            {
+                $scope.sintaxa_matematica.push({line:i,error:err});
+                console.log("error"+err +"at line"+i);
+                
             }
+            
             $scope.lipsa_punct_si_virgula=[]
             for(i=0;i<lines.length;i++){
                 if(lines[i].indexOf('=')!=-1 && lines[i].indexOf(';')==-1)
@@ -38,11 +67,7 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                     $scope.lipsa_punct_si_virgula.push({linie:i});
                     console.log("problem at line:"+i);                
                 }
-                if(lines[i].indexOf(',')!=-1 && lines[i].indexOf(';')==-1)
-                {
-                    $scope.lipsa_punct_si_virgula.push({linie:i});
-                    console.log("problem at line:"+i);                
-                }
+                
                 
                 if(lines[i].indexOf('++')!=-1 && lines[i].indexOf(';')==-1)
                 {

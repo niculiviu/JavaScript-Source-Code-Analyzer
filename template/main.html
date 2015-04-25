@@ -15,6 +15,12 @@
             <div class="alert alert-danger" role="alert" ng-repeat="eroare in lipsa_punct_si_virgula" style="margin:0px;">
                 Lipsa <kbd>;</kbd> la linia: {{eroare.linie}}
             </div>
+            <div class="alert alert-danger" role="alert" ng-repeat="eroare in sintaxa_matematica" style="margin:0px;">
+               Eroare de sintaxa matematica
+            </div>
+            <div class="alert alert-danger" role="alert" ng-repeat="eroare in sintaxa_att" style="margin:0px;">
+                Eroare de sintaxa la linia: {{eroare.linie}}
+            </div>
         </div>
         <div class="col-sm-4">
             <div class="panel panel-default">
