@@ -19,9 +19,10 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
             $scope.cuvinte_cheie=[];
             $scope.variabile=[];
             
+            //validari de sintaxa si expersii matematice;
             $scope.sintaxa_matematica=[];
             $scope.sintaxa_att=[];
-            //validare ;
+            
             var lines = code.split('\n');
             console.log(lines);
             try { 
@@ -60,6 +61,7 @@ app.controller('indexCtrl', ['$scope', '$rootScope','indexService',
                 
             }
             
+            //validare ;
             $scope.lipsa_punct_si_virgula=[]
             for(i=0;i<lines.length;i++){
                 if(lines[i].indexOf('=')!=-1 && lines[i].indexOf(';')==-1)
